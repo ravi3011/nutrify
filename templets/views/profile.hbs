@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {{>header_new}}
+        <div class="profile-dassboard">
+            
+             <div class="button-box">
+                 <h1>Id :- {{username}}</h1>
+             </div>
+            <div class="profile-label">
+                <h1><label  >First name : {{firstName}}</label class="profile-label"><br></h1>
+                <h1><label  >Last name : {{lastName}}</label><br></h1>
+                <h1><label >Calorie Target : {{calorie}}</label><br></h1>
+                <h1><label >Email. : {{email}}</label><br></h1>
+                <h1><label >Mobile no. : {{mob}}</label></h1>
+            </div>
+            <div class="new-btn">
+                <h1 class="btn1 success"><a href="/changedpassword">Edit password</a></h1>
+            </div>
+                
+            
+        </div>
+    </div>
+    
+</body>
+</html>

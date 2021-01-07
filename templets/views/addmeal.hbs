@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {{>header_new}}
+        <div class="profile-dassboard">
+            
+             <div class="button-box">
+                 <h1>Add Meal</h1>
+             </div>
+
+        <form action="/addmeal" method="POST" class="input-group2">
+            <p>{{messg}}</p>
+            <input type="text" class="input-field"  placeholder="Meal Type" name="mealtype">
+            <input type="text" class="input-field" placeholder="Meal Name" name="mealname" >
+            <input type="text" class="input-field" placeholder="Description" name="description">
+            <input type="text" class="input-field" placeholder="Calories" name="calories">
+            <input type="date" class="input-field" name="date">
+            <button type="submit" class="submit-btn" >Save Record</button>
+        </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

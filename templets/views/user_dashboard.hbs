@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {{>header_new}}
+
+        <div id="myDIV"><p>{{messg}}</p></div>
+        <div class="row">
+            {{#records}}
+                <div class="column" style="background-color:#aaa;">
+                    <h1>Type : {{this.mealtype}}</h1>
+                    <h2>Food Name : {{this.mealname}}</h2>
+                    <h2>Description : {{this.description}}</h2>
+                    <h2>Calories : {{this.calories}}</h2>
+                    <h2>Date : {{this.date}}</h2>
+                    <a href="#" class="icons1" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                    <a href="#" class="icons2" ><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+                </div>
+            {{/records}}
+            
+        </div>
+                 
+    </div>
+    
+</body>
+</html>

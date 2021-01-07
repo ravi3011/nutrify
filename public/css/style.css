@@ -1,0 +1,243 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("../img/seen.jpg");
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+.form-box{
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+}
+
+.profile-dassboard{
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background:#ffad06;
+    padding: 5px;
+}
+
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+
+
+.button-box h1{
+    text-align: center;
+}
+
+.toggle-btn{
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    color: white;
+}
+
+#btn{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+#btn{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+
+.input-group{
+    top:180px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+    
+}
+
+.input-group2{
+    top:110px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+    
+}
+
+
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submit-btn{
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+.apple{
+    height: 200px;
+    width: 200px;
+}
+
+.logo{
+    text-align: center;
+}
+
+.logo p{
+    color: red;
+}
+
+.home{
+    margin-left: 490px;
+    color: white;
+}
+
+.home a{
+    color: white;
+}
+
+
+.container-style{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.fixed-header{
+    top:0;
+    width: 100%;
+    position: fixed;        
+    background: #333;
+    padding: 10px 0;
+    color: #fff;
+}
+nav a{
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 25px;
+    display: inline-block;
+}
+
+.norecord h1{
+    padding-top: 80px;
+    padding-left: 800px;
+    color: #fff;
+}
+
+#myDIV {
+    margin: 100px 500px;
+    width: 300px;
+    height: 50px;
+    border: 1px solid white;
+    animation: mymove 5s infinite;
+    text-align: center;
+    color: white;
+    text-decoration: double;
+  }
+
+  @keyframes mymove {
+    50% {border: 15px solid lightblue;}
+  }  
+
+  #myDIV p{
+      margin-top: 15px;
+  }
+  .column {
+    float: left;
+    width: 30%;
+    padding: 20px;
+    border: 2px solid black;
+  }
+ 
+  .column1 {
+    float: left;
+    width: 50%;
+    padding: 20px;
+    height: 40%;
+    border: 2px solid black;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.profile-label{
+    background-color: #999;
+    width: 94%;
+    padding-right: 10px ;
+    position: absolute;
+    border: 2px solid black;
+}
+
+.new-btn{
+    margin-top: 250px;
+    text-align: center;
+}
+
+.btn1 {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .btn1:hover {background: #eee;} 
+  .success {color: green;}
+
+  .icons1{
+      margin-left: 20px;
+      border: yellow;
+      color: red;
+  }
+  .icons2{
+    margin-left: 25px;
+    border: yellow;
+    color: red;
+}
