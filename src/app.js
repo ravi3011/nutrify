@@ -1,19 +1,27 @@
+"use strict";
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const session = require('express-session');
+var localStorage;
 
-
-function checkLoginUser(req,res,next){
-    const userToken = localStorage.getItem('userToken');
+const checkLoginUser = (req,res,next) => {
+    
     try{
-        var decoded = jwt.verify(userToken,'loginToken');
+        const userToken = localStorage.getItem('userToken');
+        if(req.session.myUserName){
+            var decoded = jwt.verify(userToken,'loginToken');
+        }else{
+            res.redirect("/login");    
+        }
     }catch(err){
         res.redirect("/login");
     }
     next();
 }
+
 
 if(typeof localStorage === "undefined" || localStorage === null ){
     var LocalStorage = require('node-localstorage').LocalStorage;
@@ -39,6 +47,13 @@ const partialPath = path.join(__dirname,'../templets/partials');
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
+// session seting
+app.use(session({
+    secret:'eQ6e,&q(\@Lxk@6W',
+    resave:false,
+    saveUninitialized:true
+}));
+
 // setup handlers engine and view location
 app.set('view engine','hbs');
 app.set('views',viewsPath);
@@ -52,8 +67,8 @@ app.use(express.static(publicPath));
 // home page 
 
 app.get('/',(req,res) =>{
-    var loginUser = localStorage.getItem('loginUser');
-    if(loginUser){
+    // var loginUser = localStorage.getItem('loginUser');
+    if(req.session.myUserName){
         res.redirect("/profile");
     }else{
         res.render('index');
@@ -95,26 +110,24 @@ app.post('/register',async (req,res) =>{
 
 
 app.get('/login',(req,res) =>{
-    res.render('login',{
-        title:"Welcome to login page",
-        name:"Ravi kushwaha"
-    })
+    res.render('login');
 })
 
-app.get('/profile',checkLoginUser, async (req,res) =>{
+app.get('/profile', checkLoginUser, async (req,res) =>{
     try{
-        const loginUser = localStorage.getItem('loginUser');
+        const loginUser = req.session.myUserName;
         const data = await User.findOne({username:loginUser});
         res.render('profile',{username:loginUser,firstName:data.firstname,lastName:data.lastname,calorie:data.calories_day,email:data.email,mob:data.mobile});
-    }catch(error){
-        res.status(404).send(error)
+    }catch(error)
+    {
+        res.end(error);
     }
     
 })
 
 app.get('/addmeal',checkLoginUser, async (req,res) =>{
     try{
-        const loginUser = localStorage.getItem('loginUser');
+        const loginUser = req.session.myUserName;
         const data = await User.findOne({username:loginUser});
         res.render('addmeal',{firstName:data.firstname,lastName:data.lastname});
     }catch(error){
@@ -127,7 +140,7 @@ app.get('/addmeal',checkLoginUser, async (req,res) =>{
 
 app.get('/changedpassword',checkLoginUser, async (req,res) =>{
     try{
-        const loginUser = localStorage.getItem('loginUser');
+        const loginUser = req.session.myUserName
         const data = await User.findOne({username:loginUser});
         res.render('changedpassword',{username:loginUser,firstName:data.firstname,lastName:data.lastname});
     }catch(error){
@@ -140,7 +153,7 @@ app.get('/changedpassword',checkLoginUser, async (req,res) =>{
 
 app.post('/changedpassword',checkLoginUser, async (req,res) =>{
     try{
-        const userName = localStorage.getItem('loginUser');
+        const userName = req.session.myUserName;
         const oldPassword = req.body.oldpassword;
         const newPassword = req.body.newpassword;
         const data = await User.findOne({username:userName});
@@ -151,7 +164,7 @@ app.post('/changedpassword',checkLoginUser, async (req,res) =>{
             res.status(201).redirect("profile");
         }
         else{
-            res.send("Not matched");
+            res.send("<h1>Not matched passworrd click <a href='/changedpassword'>here</a> to try again.</h1>");
         }
 
     } catch (error){
@@ -164,7 +177,7 @@ app.post('/changedpassword',checkLoginUser, async (req,res) =>{
 
 app.post('/addmeal',checkLoginUser, async (req,res) =>{
     try{
-        const userName = localStorage.getItem('loginUser');
+        const userName = req.session.myUserName;
         const mealRecord = new Meal({'username':userName,
                 mealtype:req.body.mealtype,
                 mealname:req.body.mealname,
@@ -172,6 +185,7 @@ app.post('/addmeal',checkLoginUser, async (req,res) =>{
                 calories:req.body.calories,
                 date:req.body.date
             });
+            console.log(req.body.date);
             const registered = await mealRecord.save();
             res.status(201).redirect('addmeal');
 
@@ -184,7 +198,7 @@ app.post('/addmeal',checkLoginUser, async (req,res) =>{
 
 app.get('/user_dashboard',checkLoginUser, async (req,res) =>{
     try{
-        const userName = localStorage.getItem('loginUser');
+        const userName = req.session.myUserName;
         const data = await User.findOne({username:userName});
         const meal = await Meal.find({username:userName});
         if(meal.length === 0){
@@ -206,10 +220,11 @@ app.get('/user_dashboard',checkLoginUser, async (req,res) =>{
 
 // delete the meal from dashboard
 
-app.get('/user_dashboard/delete/:id',checkLoginUser, async (req,res) =>{
+app.get('/user_dashboard/delete/:id',checkLoginUser, async(req,res) =>{
     try{
         const mealId = req.params.id;
         const deleteMeal = await Meal.findByIdAndDelete(mealId);
+        // deleteMeal.ec
         res.redirect("/user_dashboard");
       
     }catch(error){
@@ -223,7 +238,7 @@ app.get('/user_dashboard/edit/:id',checkLoginUser, async (req,res) =>{
     try{
         const mealId = req.params.id;
         const mealDelete = await Meal.findById(mealId);
-        const loginUser = localStorage.getItem('loginUser');
+        const loginUser = req.session.myUserName;
         const data = await User.findOne({username:loginUser});
         res.status(201).render('edit_meal',{firstName:data.firstname,lastName:data.lastname,records:mealDelete,id:mealId});
       
@@ -236,7 +251,7 @@ app.get('/user_dashboard/edit/:id',checkLoginUser, async (req,res) =>{
 app.post('/user_dashboard/edit',checkLoginUser, async (req,res) =>{
     try{
         const mealId = req.body.id;
-        const loginUser = localStorage.getItem('loginUser');
+        const loginUser = req.session.myUserName
         const mealUpdated = await Meal.findByIdAndUpdate(mealId,{                mealtype:req.body.mealtype,
             mealname:req.body.mealname,
             description:req.body.description,
@@ -281,6 +296,7 @@ app.post('/login', async (req,res) =>{
             var token = jwt.sign({userId:userId},'loginToken');
             localStorage.setItem('userToken',token);
             localStorage.setItem('loginUser',username);
+            req.session.myUserName=username;
             res.status(201).redirect("profile");
         }
         else{
@@ -293,8 +309,13 @@ app.post('/login', async (req,res) =>{
 })
 
 app.get("/logout",(req,res) =>{
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('loginUser');
+    req.session.destroy((err) =>{
+        if(err){
+            res.redirect("/");
+        }
+    });
+    // localStorage.removeItem('userToken');
+    // localStorage.removeItem('loginUser');
     res.redirect("/");
 });
 
