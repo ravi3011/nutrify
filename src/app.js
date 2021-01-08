@@ -187,11 +187,10 @@ app.get('/user_dashboard',checkLoginUser, async (req,res) =>{
         const userName = localStorage.getItem('loginUser');
         const data = await User.findOne({username:userName});
         const meal = await Meal.find({username:userName});
-        console.log(meal);
         if(meal.length === 0){
-            res.status(201).render('user_dashboard',{messg:"No records found",'firstName':data.firstname,'lastName':data.lastname,records:meal});
+            res.status(201).render('user_dashboard',{messg:"No meals found",'firstName':data.firstname,'lastName':data.lastname,records:meal});
         }else{
-            res.status(201).render('user_dashboard',{messg:"Yoo! All records are below",
+            res.status(201).render('user_dashboard',{messg:"Yoo! All meals are below",
             firstName:data.firstname,
             lastName:data.lastname,
             records:meal});
@@ -205,6 +204,66 @@ app.get('/user_dashboard',checkLoginUser, async (req,res) =>{
 })
 
 
+// delete the meal from dashboard
+
+app.get('/user_dashboard/delete/:id',checkLoginUser, async (req,res) =>{
+    try{
+        const mealId = req.params.id;
+        const deleteMeal = await Meal.findByIdAndDelete(mealId);
+        res.redirect("/user_dashboard");
+      
+    }catch(error){
+        res.status(404).send(error)
+    }
+    
+})
+
+// Edit the meal 
+app.get('/user_dashboard/edit/:id',checkLoginUser, async (req,res) =>{
+    try{
+        const mealId = req.params.id;
+        const mealDelete = await Meal.findById(mealId);
+        const loginUser = localStorage.getItem('loginUser');
+        const data = await User.findOne({username:loginUser});
+        res.status(201).render('edit_meal',{firstName:data.firstname,lastName:data.lastname,records:mealDelete,id:mealId});
+      
+    }catch(error){
+        res.status(404).send(error)
+    }
+    
+})
+
+app.post('/user_dashboard/edit',checkLoginUser, async (req,res) =>{
+    try{
+        const mealId = req.body.id;
+        const loginUser = localStorage.getItem('loginUser');
+        const mealUpdated = await Meal.findByIdAndUpdate(mealId,{                mealtype:req.body.mealtype,
+            mealname:req.body.mealname,
+            description:req.body.description,
+            calories:req.body.calories});
+        res.redirect('/user_dashboard');
+      
+    }catch(error){
+        res.status(404).send(error)
+    }
+    
+})
+
+
+// app.get('/edit_meal',checkLoginUser, async (req,res) =>{
+//     try{
+//         const loginUser = localStorage.getItem('loginUser');
+//         const data = await User.findOne({username:loginUser});
+//         res.render('edit_meal',{firstName:data.firstname,lastName:data.lastname});
+//     }catch(error){
+//         res.status(404).send(error)
+//     }
+    
+// })
+
+
+
+// User profile 
 app.get('/user_profile',(req,res) =>{
     res.render('user_profile')
 })
@@ -246,3 +305,5 @@ app.get('*',(req,res) => {
 app.listen(port,()=>{
     console.log("Server is up on port : " + port);
 })
+
+// https://my-nutrify-calories-app.herokuapp.com/

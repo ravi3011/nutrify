@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {{>header_new}}
+        <div class="profile-dassboard">
+            
+             <div class="button-box">
+                 <h1>Update Meal</h1>
+             </div>
+
+        <form action="/user_dashboard/edit" method="POST" class="input-group2">
+            <p>{{messg}}</p>
+            <input type="hidden" value="{{id}}" name="id">
+            <input type="text" class="input-field"  placeholder="Meal Type" value="{{records.mealtype}}" name="mealtype">
+            <input type="text" class="input-field" placeholder="Meal Name" value="{{records.mealname}}" name="mealname" >
+            <input type="text" class="input-field" placeholder="Description" value="{{records.description}}" name="description">
+            <input type="text" class="input-field" placeholder="Calories" value="{{records.calories}}" name="calories">
+            <button type="submit" class="submit-btn" >Update Record</button>
+        </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

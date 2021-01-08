@@ -21,8 +21,8 @@
                     <h2>Description : {{this.description}}</h2>
                     <h2>Calories : {{this.calories}}</h2>
                     <h2>Date : {{this.date}}</h2>
-                    <a href="#" class="icons1" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
-                    <a href="#" class="icons2" ><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+                    <a href="/user_dashboard/delete/{{this._id}}" class="icons1" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                    <a href="/user_dashboard/edit/{{this._id}}" class="icons2" ><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
                 </div>
             {{/records}}
             
