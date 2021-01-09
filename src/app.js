@@ -1,4 +1,4 @@
-"use strict";
+
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
@@ -104,7 +104,7 @@ app.post('/register',async (req,res) =>{
             }
             
         } catch (error){
-            res.status(400).send(error);
+            res.status(400).send("<h1>User Name alredy present, click <a href='/register'>here</a> to try another again.</h1>");
         }
 });
 
