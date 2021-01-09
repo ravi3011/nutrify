@@ -5,7 +5,7 @@
 .container{
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("../img/seen.jpg");
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("https://www.nutfruit.org/images/noticia/1597227233-nuts-and-dried-fruits2.jpeg");
     background-position: center;
     background-size: cover;
     position: absolute;
