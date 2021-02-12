@@ -45,6 +45,8 @@ userSchema.pre("save",async function (next){
 
 const User = new mongoose.model('User',userSchema);
 
+// Meal schema
+
 const mealSchema = new mongoose.Schema({
     username:{
         type:String,

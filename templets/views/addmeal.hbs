@@ -16,18 +16,21 @@
                  <h1>Add Meal</h1>
              </div>
 
-        <form action="/addmeal" method="POST" class="input-group2">
-            <p>{{messg}}</p>
-            <input type="text" class="input-field"  placeholder="Meal Type" name="mealtype">
-            <input type="text" class="input-field" placeholder="Meal Name" name="mealname" >
-            <input type="text" class="input-field" placeholder="Description" name="description">
-            <input type="text" class="input-field" placeholder="Calories" name="calories">
-            <input type="date" class="input-field" name="date">
-            <button type="submit" class="submit-btn" >Save Record</button>
-        </form>
-
+            <form action="/addmeal" method="POST" class="input-group2">
+                <p>{{messg}}</p>
+                <input type="text" class="input-field"  placeholder="Meal Type" name="mealtype">
+                <input type="text" class="input-field" placeholder="Meal Name" name="mealname" >
+                <input type="text" class="input-field" placeholder="Description" name="description">
+                <input type="text" class="input-field" placeholder="Calories" name="calories">
+                <button onclick="check()">click</button>
+                <input type="date" class="input-field" name="date">
+                <button type="submit" class="submit-btn" >Save Record</button>
+            </form>
         </div>
     </div>
     
 </body>
+<script src="js/client.js"> 
+
+</script>
 </html>
